@@ -7,4 +7,3 @@ __pycache__/
 yolov8n.pt
 runs/
 results/boardvision_train/weights/
-pitch/.pitch_build/
