@@ -1,5 +1,3 @@
-"""Executa o modelo BoardVision em uma imagem, vídeo ou pasta."""
-
 from __future__ import annotations
 
 import argparse

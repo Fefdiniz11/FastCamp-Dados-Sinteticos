@@ -1,6 +1,6 @@
 {
   "project": "BoardVision",
-  "trained_at": "2026-08-07T16:59:42",
+  "trained_at": "2026-08-07T18:19:04",
   "architecture": "YOLOv8n",
   "checkpoint": "yolov8n.pt",
   "epochs_requested": 20,

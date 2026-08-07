@@ -1,5 +1,3 @@
-"""Treina o detector BoardVision com YOLOv8n."""
-
 from __future__ import annotations
 
 import argparse

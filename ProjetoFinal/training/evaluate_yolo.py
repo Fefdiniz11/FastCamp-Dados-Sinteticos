@@ -1,5 +1,3 @@
-"""Avalia o modelo BoardVision no conjunto de teste e salva exemplos visuais."""
-
 from __future__ import annotations
 
 import argparse

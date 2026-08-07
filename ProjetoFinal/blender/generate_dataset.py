@@ -1,14 +1,3 @@
-"""Generate the BoardVision synthetic object-detection dataset in Blender.
-
-Run from the project root:
-    /Applications/Blender.app/Contents/MacOS/Blender --background \
-        --python blender/generate_dataset.py -- \
-        --train 168 --val 36 --test 36 --resolution 416
-
-The script creates three procedural board-game objects (die, pawn and token),
-randomizes the scene, renders PNG images, and writes YOLO bounding boxes.
-"""
-
 from __future__ import annotations
 
 import argparse
@@ -28,9 +17,18 @@ CLASS_NAMES = ["dado", "peao", "ficha"]
 DEFAULT_SEED = 42
 
 
+def get_project_root() -> Path:
+    """Resolve a raiz do projeto no Terminal ou no editor de texto do Blender."""
+    if bpy.data.filepath:
+        current_blend = Path(bpy.data.filepath).resolve()
+        if current_blend.suffix.lower() == ".blend":
+            return current_blend.parent.parent
+    return Path(__file__).resolve().parents[1]
+
+
 def parse_args() -> argparse.Namespace:
     argv = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else []
-    project_root = Path(__file__).resolve().parents[1]
+    project_root = get_project_root()
     parser = argparse.ArgumentParser(description="Generate BoardVision synthetic data")
     parser.add_argument("--output", type=Path, default=project_root / "dataset")
     parser.add_argument("--train", type=int, default=168)
@@ -289,20 +287,36 @@ def sample_positions(rng: random.Random, count: int, min_distance=1.85):
     return positions
 
 
+def place_root_on_floor(root, clearance=0.025) -> None:
+    """Move o objeto no eixo Z até seu ponto mais baixo encostar no plano."""
+    bpy.context.view_layer.update()
+    depsgraph = bpy.context.evaluated_depsgraph_get()
+    lowest_z = None
+    for part in iter_mesh_parts(root):
+        evaluated = part.evaluated_get(depsgraph)
+        for corner in evaluated.bound_box:
+            world_z = float((evaluated.matrix_world @ Vector(corner)).z)
+            lowest_z = world_z if lowest_z is None else min(lowest_z, world_z)
+    if lowest_z is not None:
+        root.location.z += clearance - lowest_z
+        bpy.context.view_layer.update()
+
+
 def randomize_scene(scene, roots, floor_material, camera, key_light, fill_light, sun, rng):
     positions = sample_positions(rng, len(roots))
     object_metadata = []
     for root, position in zip(roots, positions):
         root.location = position
-        root.rotation_euler = (0, 0, rng.uniform(-math.pi, math.pi))
+        root.rotation_euler = tuple(rng.uniform(-math.pi, math.pi) for _ in range(3))
         scale = rng.uniform(0.78, 1.16)
         root.scale = (scale, scale, scale)
+        place_root_on_floor(root)
         recolor_root(root, rng)
         object_metadata.append({
             "class_id": int(root["class_id"]),
             "class_name": CLASS_NAMES[int(root["class_id"])],
             "location": [round(float(v), 4) for v in root.location],
-            "rotation_z": round(float(root.rotation_euler.z), 4),
+            "rotation_xyz": [round(float(v), 4) for v in root.rotation_euler],
             "scale": round(scale, 4),
         })
 
@@ -460,12 +474,13 @@ def generate_dataset(args, scene, roots, floor_material, camera, key_light, fill
 
 def main() -> None:
     args = parse_args()
+    project_root = get_project_root()
     clean_scene()
     scene, roots, floor_material, camera, key_light, fill_light, sun = setup_scene(args.resolution)
 
     scene_rng = random.Random(args.seed)
     randomize_scene(scene, roots, floor_material, camera, key_light, fill_light, sun, scene_rng)
-    blend_path = Path(__file__).resolve().parent / "boardvision_scene.blend"
+    blend_path = project_root / "blender" / "ProjetoFinal.blend"
     bpy.ops.wm.save_as_mainfile(filepath=str(blend_path))
 
     summary = generate_dataset(args, scene, roots, floor_material, camera, key_light, fill_light, sun)
