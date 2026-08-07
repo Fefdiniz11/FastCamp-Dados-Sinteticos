@@ -1,0 +1,8 @@
+path: /Users/fefdiniz/Documents/Documentos-MacBookProdeFernanda/UnB/Fastcamp/FastCamp-Dados-Sinteticos/ProjetoFinal/dataset
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: dado
+  1: peao
+  2: ficha

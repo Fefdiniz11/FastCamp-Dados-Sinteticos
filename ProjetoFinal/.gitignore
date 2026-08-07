@@ -1,0 +1,10 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+*.blend1
+*.cache
+yolov8n.pt
+runs/
+results/boardvision_train/weights/
+pitch/.pitch_build/

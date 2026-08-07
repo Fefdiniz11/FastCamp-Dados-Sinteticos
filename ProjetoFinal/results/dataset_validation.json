@@ -1,0 +1,54 @@
+{
+  "valid": true,
+  "dataset": "/Users/fefdiniz/Documents/Documentos-MacBookProdeFernanda/UnB/Fastcamp/FastCamp-Dados-Sinteticos/ProjetoFinal/dataset",
+  "splits": {
+    "train": {
+      "images": 168,
+      "labels": 168,
+      "instances": 504,
+      "classes": {
+        "dado": 168,
+        "peao": 168,
+        "ficha": 168
+      },
+      "dimensions": {
+        "416x416": 168
+      }
+    },
+    "val": {
+      "images": 36,
+      "labels": 36,
+      "instances": 108,
+      "classes": {
+        "dado": 36,
+        "peao": 36,
+        "ficha": 36
+      },
+      "dimensions": {
+        "416x416": 36
+      }
+    },
+    "test": {
+      "images": 36,
+      "labels": 36,
+      "instances": 108,
+      "classes": {
+        "dado": 36,
+        "peao": 36,
+        "ficha": 36
+      },
+      "dimensions": {
+        "416x416": 36
+      }
+    }
+  },
+  "total_images": 240,
+  "total_instances": 720,
+  "class_distribution": {
+    "dado": 240,
+    "peao": 240,
+    "ficha": 240
+  },
+  "errors": [],
+  "preview": "/Users/fefdiniz/Documents/Documentos-MacBookProdeFernanda/UnB/Fastcamp/FastCamp-Dados-Sinteticos/ProjetoFinal/results/annotation_preview.png"
+}

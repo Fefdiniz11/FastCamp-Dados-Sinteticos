@@ -1,0 +1,18 @@
+{
+  "project": "BoardVision",
+  "task": "object_detection",
+  "classes": [
+    "dado",
+    "peao",
+    "ficha"
+  ],
+  "resolution": 416,
+  "seed": 42,
+  "splits": {
+    "train": 168,
+    "val": 36,
+    "test": 36
+  },
+  "images": 240,
+  "instances": 720
+}

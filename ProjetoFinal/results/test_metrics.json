@@ -1,0 +1,42 @@
+{
+  "project": "BoardVision",
+  "evaluated_at": "2026-08-07T17:06:02",
+  "split": "test",
+  "images": 36,
+  "instances": 108,
+  "device": "mps",
+  "metrics": {
+    "precision": 0.9766486746539105,
+    "recall": 1.0,
+    "mAP50": 0.995,
+    "mAP50_95": 0.8087492116646039
+  },
+  "speed_ms_per_image": {
+    "preprocess": 0.1575543891602946,
+    "inference": 5.110774277960041,
+    "loss": 5.5555372253163826e-05,
+    "postprocess": 3.342409749974548
+  },
+  "per_class": {
+    "dado": {
+      "precision": 0.9892595783928428,
+      "recall": 1.0,
+      "mAP50": 0.995,
+      "mAP50_95": 0.9949999999999999
+    },
+    "peao": {
+      "precision": 0.9951853604752187,
+      "recall": 1.0,
+      "mAP50": 0.995,
+      "mAP50_95": 0.7483868504613704
+    },
+    "ficha": {
+      "precision": 0.9455010850936701,
+      "recall": 1.0,
+      "mAP50": 0.995,
+      "mAP50_95": 0.682860784532441
+    }
+  },
+  "model": "/Users/fefdiniz/Documents/Documentos-MacBookProdeFernanda/UnB/Fastcamp/FastCamp-Dados-Sinteticos/ProjetoFinal/models/best.pt",
+  "results_dir": "/Users/fefdiniz/Documents/Documentos-MacBookProdeFernanda/UnB/Fastcamp/FastCamp-Dados-Sinteticos/ProjetoFinal/results/boardvision_test_metrics"
+}
